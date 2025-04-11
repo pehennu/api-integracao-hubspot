@@ -16,4 +16,9 @@ public class ContactController {
     public Mono<String> createContact(@RequestBody String contactData) {
         return service.createContact(contactData);
     }
+
+    @GetMapping("/list")
+    public Mono<String> listContacts() {
+        return service.getAllContacts();
+    }
 }

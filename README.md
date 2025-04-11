@@ -4,63 +4,44 @@
 
 ## Pré-requisitos
 
-Antes de executar o projeto, certifique-se de ter:
+- Java JDK 11 ou superior
+- Maven
+- Conta de desenvolvedor no HubSpot
 
-- Uma **[conta gratuita de desenvolvedor HubSpot](https://app.hubspot.com/signup-hubspot/developers?step=landing_page)**
-- **[Java 17](https://www.oracle.com/java/technologies/javase/jdk17-archive-downloads.html)** ou superior (o projeto está usando a versão 17)
-- **[Maven 3.8](https://maven.apache.org/download.cgi)** ou superior (o projeto está usando a versão 3.9.9)
-- **Spring Boot 3.4.x** ou superior (o projeto está usando a versão 3.4.4)
-
-Você pode verificar as versões instaladas com os seguintes comandos:
-```bash
-$ java -version
-$ mvn -version
-```
-
-## Instruções Para Executar a Aplicação
-
-1. Clone o repositório:
-   ```bash
-   $ git clone https://github.com/pehennu/api-integracao-hubspot.git
-   ```
-2. Navegue até o diretório da aplicação:
-   ```bash
-   $ cd hubspot-integration
-   ```
-3. Limpe e compile a aplicação:
-   ```bash
-   $ mvn clean install
-   ```
-4. Rode o projeto:
-   ```bash
-   $ mvn spring-boot:run
+## **Configuração**
+1. Clone o repositório.
+2. Configure as variáveis de ambiente.
+3. Execute o projeto.
    ```
 ## Endpoints
 
-| Método | Rota                      | Descrição                                                         |
-|--------|---------------------------|-------------------------------------------------------------------|
-| GET    | `/api/auth/authorize-url` | Retorna a URL de autorização.                                     |
+| Método | Rota                      | Descrição                                                                          |
+|--------|---------------------------|------------------------------------------------------------------------------------|
+| GET    | `/api/auth/authorize-url` | Retorna a URL de autorização.                                                      |
 | GET    | `/api/auth/callback`      | Recebe o código de autorização fornecido pelo HubSpot e retorna o token de acesso. |
-| POST    | `/api/contact/create`     | Recebe o código de autorização fornecido pelo HubSpot e retorna o token de acesso. |
+| POST   | `/api/contact/create`     | Cria um contato baseado no json enviado.                                           |
+| GET    | `/api/contact/list`       | Retorna uma lista de contatos previamente criados.                                 |
 
 ## Como Testar a Aplicação
 (Utilize insomnia ou postman para ter mais facilidade)
 
-1. Com a aplicação rodando, faça uma requisição GET para `http://localhost:8080/api/auth/authorize-url`. Isso gerará a URL de autorização.
-2. Crie uma nova conta ou faça login para autorizar.
-3. Após autorizar, o HubSpot redirecionará você para uma página onde o código de autorização será exibido. Copie o código de autorização.
-5. Faça uma requisição GET para `http://localhost:8080/api/auth/callback?code={seuCodigo}`, substituindo `{seuCodigo}` pelo código copiado no passo anterior.
-6. O HubSpot retornará o token de acesso. Copie o token em seguida, faça uma requisição POST para `http://localhost:8080/api/contact/create` para criar um novo contato.
+1. **Gere o Token de Acesso**
+    - Acesse /auth/authorize para obter a URL de autorização e o código que será redirecionado para /auth/callback.
+    - Use o código retornado para obter o token em /auth/callback.
+2. **Crie um Contato**
+    - Envie uma requisição POST para /api/contact/create com o token no header Authorization e os dados do contato no body (JSON).
    {
-   "properties": {
-   "firstname": "João",
-   "lastname": "Silva",
-   "email": "joao@exemplo.com"
+     "properties": {
+       "firstname": "Pedro",
+       "lastname": "Nunes",
+       "email": "nunesp@exemplo.com"
+     }
    }
-   }
+3. **Retorne uma lista d contatos**
+    - Envie uma requisição GET para /api/contact/list com o token no header Authorization.
 
-7. Inclua o token de acesso no cabeçalho da requisição.
-8. Inclua o body e envie a requisição.
+## Swagger
+- Com o projeto rodando, acesse a documentação via swagger http://localhost:8080/swagger-ui.html
 
 ## Decisões Técnicas
 
@@ -84,6 +65,5 @@ Essas decisões visam otimizar a segurança, a escalabilidade e a simplicidade d
 Abaixo estão algumas possíveis melhorias para o futuro:
 
 - **Testes**:  Implementar testes unitários e de integração com a API do HubSpot.
-- **Documentação da API**: A documentação da API poderia ser melhorada usando ferramentas como Swagger/OpenAPI com a adição de exemplos de requisições e respostas, além de uma descrição mais detalhada de cada endpoint.
 - **Melhorar Gerenciamento dos Tokens**: Gerenciar melhor os tokens com permanência em Banco de Dados ou cache (como Redis). Isso permitiria a aplicação lidar com tokens expirados de maneira mais eficiente e evitar reautenticações desnecessárias.
 - **Melhorias no Gerenciamento de Erros**: Embora o sistema já trate de erros de forma básica, poderia implementar uma estratégia mais robusta de gerenciamento de erros, com códigos de status HTTP mais detalhados e mensagens de erro mais informativas.
