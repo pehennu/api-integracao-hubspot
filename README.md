@@ -21,7 +21,7 @@ $ mvn -version
 
 1. Clone o repositório:
    ```bash
-   $ git clone https://github.com/RaquelAmbroziof/hubspot-integration.git
+   $ git clone https://github.com/pehennu/api-integracao-hubspot.git
    ```
 2. Navegue até o diretório da aplicação:
    ```bash
