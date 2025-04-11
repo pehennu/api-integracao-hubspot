@@ -51,6 +51,14 @@ $ mvn -version
 3. Após autorizar, o HubSpot redirecionará você para uma página onde o código de autorização será exibido. Copie o código de autorização.
 5. Faça uma requisição GET para `http://localhost:8080/api/auth/callback?code={seuCodigo}`, substituindo `{seuCodigo}` pelo código copiado no passo anterior.
 6. O HubSpot retornará o token de acesso. Copie o token em seguida, faça uma requisição POST para `http://localhost:8080/api/contact/create` para criar um novo contato.
+   {
+   "properties": {
+   "firstname": "João",
+   "lastname": "Silva",
+   "email": "joao@exemplo.com"
+   }
+   }
+
 7. Inclua o token de acesso no cabeçalho da requisição.
 8. Inclua o body e envie a requisição.
 
