@@ -46,11 +46,11 @@ $ mvn -version
 ## Como Testar a Aplicação
 (Utilize insomnia ou postman para ter mais facilidade)
 
-1. Com a aplicação rodando, faça uma requisição GET para `http://localhost:8080/oauth/authorize`. Isso gerará a URL de autorização.
+1. Com a aplicação rodando, faça uma requisição GET para `http://localhost:8080/api/auth/authorize-url`. Isso gerará a URL de autorização.
 2. Crie uma nova conta ou faça login para autorizar.
 3. Após autorizar, o HubSpot redirecionará você para uma página onde o código de autorização será exibido. Copie o código de autorização.
-5. Faça uma requisição GET para `http://localhost:8080/oauth/callback?code={seuCodigo}`, substituindo `{seuCodigo}` pelo código copiado no passo anterior.
-6. O HubSpot retornará o token de acesso. Copie o token em seguida, faça uma requisição POST para `http://localhost:8080/contact/create` para criar um novo contato.
+5. Faça uma requisição GET para `http://localhost:8080/api/auth/callback?code={seuCodigo}`, substituindo `{seuCodigo}` pelo código copiado no passo anterior.
+6. O HubSpot retornará o token de acesso. Copie o token em seguida, faça uma requisição POST para `http://localhost:8080/api/contact/create` para criar um novo contato.
 7. Inclua o token de acesso no cabeçalho da requisição.
 8. Inclua o body e envie a requisição.
 
