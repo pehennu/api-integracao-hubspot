@@ -4,7 +4,7 @@
 
 ## Pré-requisitos
 
-- Java JDK 11 ou superior
+- Java JDK 17 ou superior
 - Maven
 - Conta de desenvolvedor no HubSpot
 
@@ -30,13 +30,7 @@
     - Use o código retornado para obter o token em /auth/callback.
 2. **Crie um Contato**
     - Envie uma requisição POST para /api/contact/create com o token no header Authorization e os dados do contato no body (JSON).
-   {
-     "properties": {
-       "firstname": "Pedro",
-       "lastname": "Nunes",
-       "email": "nunesp@exemplo.com"
-     }
-   }
+   <pre> ```json { "properties": { "firstname": "Pedro", "lastname": "Nunes", "email": "nunesp@exemplo.com" } } ``` </pre>
 3. **Retorne uma lista d contatos**
     - Envie uma requisição GET para /api/contact/list com o token no header Authorization.
 
